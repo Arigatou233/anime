@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#171923">
+<title>番剧删减记录表</title>
+<style>
+:root{color-scheme:dark;--bg:#101116;--panel:#191b24;--panel2:#20232e;--text:#f4f4f7;--muted:#a7a9b8;--line:#303342;--accent:#9b8cff;--accent2:#c2b8ff;--danger:#ff747f;--ok:#85d8b0;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#24213c 0,#101116 44rem);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 14px;border-radius:12px;transition:.15s}button:hover{border-color:var(--accent)}button.primary{background:var(--accent);color:#171323;border-color:var(--accent);font-weight:700}button.danger{color:var(--danger)}button.small{padding:6px 10px;font-size:13px}
+.wrap{max-width:1180px;margin:auto;padding:22px 18px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px 0 30px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#a89cff,#6f61cb);display:grid;place-items:center;font-size:24px;box-shadow:0 8px 26px #8a7aff30}.brand h1{font-size:clamp(20px,3vw,28px);margin:0;letter-spacing:.02em}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.top-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.hero{padding:30px clamp(18px,4vw,38px);border:1px solid #ffffff12;border-radius:26px;background:linear-gradient(125deg,#27233d,#1b1d29 60%,#252039);margin-bottom:22px}.eyebrow{color:var(--accent2);font-size:12px;font-weight:800;letter-spacing:.14em}.hero h2{font-size:clamp(27px,5vw,42px);line-height:1.2;margin:10px 0}.hero p{color:var(--muted);max-width:660px;margin:0}.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.stat{padding:11px 15px;border-radius:14px;background:#ffffff09;border:1px solid #ffffff0c;min-width:100px}.stat strong{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}
+.toolbar{display:grid;grid-template-columns:minmax(180px,1fr) 180px auto;gap:10px;margin:20px 0 14px}.field{width:100%;background:#171922;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:11px 12px;outline:none}.field:focus{border-color:var(--accent)}.toolbar select{min-width:0}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:24px 0 12px}.section-head h3{font-size:17px;margin:0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.card{overflow:hidden;background:linear-gradient(180deg,#1d202a,#171920);border:1px solid var(--line);border-radius:var(--radius);min-width:0}.card-top{display:flex;gap:13px;padding:14px}.cover{width:92px;height:124px;flex:0 0 92px;object-fit:cover;border-radius:11px;background:#292b37;border:1px solid #ffffff14}.cover-placeholder{display:grid;place-items:center;font-size:32px;color:#aaa;width:92px;height:124px;flex:0 0 92px;border-radius:11px;background:linear-gradient(135deg,#323046,#242630)}.card-info{min-width:0;flex:1}.card-info h4{font-size:16px;margin:1px 0 6px;overflow-wrap:anywhere}.meta{font-size:12px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}.tag{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;background:#9b8cff1c;color:var(--accent2);font-size:11px;margin:6px 4px 0 0}.summary{font-size:13px;color:#c3c4cf;margin:8px 0 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-wrap}.card-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.card-actions button{font-size:12px;padding:6px 9px}.details{border-top:1px solid var(--line);padding:12px 14px 15px}.details summary{cursor:pointer;color:var(--accent2);font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:10px}.details summary::-webkit-details-marker{display:none}.details summary:after{content:"＋";color:var(--muted)}.details[open] summary:after{content:"−"}.episode{margin-top:12px;padding:12px;border-radius:12px;background:#101218;border:1px solid #292c38}.episode h5{margin:0 0 8px;font-size:13px}.cut{font-size:13px;color:#dedee7;padding:7px 0;border-top:1px dashed #303342;overflow-wrap:anywhere}.cut:first-of-type{border-top:0}.cut b{color:var(--accent2);font-weight:650}.empty{grid-column:1/-1;text-align:center;border:1px dashed var(--line);border-radius:18px;padding:44px 18px;color:var(--muted)}.notice{margin:16px 0;padding:12px 14px;border-radius:12px;background:#ffcf6b10;border:1px solid #ffcf6b2a;color:#e8d9ae;font-size:13px}
+dialog{border:1px solid #44465a;border-radius:20px;background:#191b24;color:var(--text);width:min(720px,calc(100% - 24px));max-height:90vh;padding:0;box-shadow:0 24px 100px #0009}dialog::backdrop{background:#05050ab8;backdrop-filter:blur(5px)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#191b24;z-index:2}.modal-head h3{margin:0;font-size:18px}.modal-body{padding:18px 20px 22px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-group{display:flex;flex-direction:column;gap:6px;min-width:0}.form-group.full{grid-column:1/-1}.form-group label{font-size:13px;color:#c4c5d0}.form-group textarea{resize:vertical;min-height:80px}.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.episode-editor{border:1px solid var(--line);padding:12px;border-radius:14px;margin-top:10px}.episode-editor-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.cut-editor{display:grid;grid-template-columns:1fr 1fr 1.2fr auto;gap:7px;margin-top:8px}.cut-editor .field{padding:8px;font-size:13px}.help{font-size:12px;color:var(--muted)}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#303344;color:white;padding:10px 16px;border-radius:999px;box-shadow:0 10px 40px #0008;z-index:10;max-width:calc(100% - 24px);text-align:center}
+footer{text-align:center;color:#7e8090;font-size:12px;padding:32px 0 0}.hidden{display:none!important}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:620px){.wrap{padding:14px 12px 40px}.top{align-items:flex-start;margin:6px 0 20px}.top-actions{gap:6px}.top-actions button{padding:8px 10px;font-size:12px}.brand{gap:9px}.logo{width:39px;height:39px;font-size:20px}.brand p{font-size:11px}.hero{border-radius:20px;padding:23px 19px}.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.toolbar button{grid-column:1/-1}.grid{grid-template-columns:1fr}.card-top{padding:12px}.cover,.cover-placeholder{width:82px;height:112px;flex-basis:82px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.cut-editor{grid-template-columns:1fr 1fr}.cut-editor input:nth-child(3){grid-column:1/-1}.cut-editor button{grid-column:1/-1}.modal-body{padding:14px}.modal-head{padding:15px}.stats{gap:8px}.stat{min-width:calc(33.33% - 6px);flex:1;padding:9px 10px}.stat strong{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">✂</div><div><h1>番剧删减记录表</h1><p>Anime Cut Notes · 个人整理与记录</p></div></div>
+    <div class="top-actions">
+      <button id="importBtn">导入备份</button>
+      <button id="exportBtn">导出 JSON</button>
+    </div>
+  </header>
+  <section class="hero">
+    <div class="eyebrow">ANIME · EDITION NOTES</div>
+    <h2>把每一处删减，<br>都记录清楚。</h2>
+    <p>按季度整理番剧，记录每集的时间点、删减时长与备注。你可以添加自己的条目，并随时备份数据。</p>
+    <div class="stats">
+      <div class="stat"><strong id="statTitles">0</strong><span>部番剧</span></div>
+      <div class="stat"><strong id="statEpisodes">0</strong><span>集记录</span></div>
+      <div class="stat"><strong id="statCuts">0</strong><span>条时间点</span></div>
+    </div>
+  </section>
+  <div class="notice">数据保存在当前浏览器。清除浏览器网站数据或更换设备前，请先导出备份。此静态版本不会自动把你的修改同步给其他访客。</div>
+  <div class="toolbar">
+    <input class="field" id="searchInput" type="search" placeholder="搜索番剧名称、季度或备注…" aria-label="搜索">
+    <select class="field" id="seasonFilter" aria-label="按季度筛选"><option value="">全部季度</option></select>
+    <button class="primary" id="addBtn">＋ 添加番剧</button>
+  </div>
+  <div class="section-head"><h3>番剧列表</h3><span class="muted" id="resultCount">0 条</span></div>
+  <main class="grid" id="animeGrid"></main>
+  <footer>番剧删减记录表 · 本地浏览器存储 · 请尊重版权并遵守相关法律法规</footer>
+</div>
+
+<dialog id="animeDialog">
+  <div class="modal-head"><h3 id="dialogTitle">添加番剧</h3><button id="closeDialog" aria-label="关闭">✕</button></div>
+  <form id="animeForm" class="modal-body">
+    <input type="hidden" id="animeId">
+    <div class="form-grid">
+      <div class="form-group"><label for="title">番剧名称 *</label><input class="field" id="title" required maxlength="120" placeholder="例如：番剧名称"></div>
+      <div class="form-group"><label for="season">季度</label><input class="field" id="season" list="seasonOptions" placeholder="例如：2026年秋季"><datalist id="seasonOptions"><option>2026年秋季</option><option>2026年夏季</option><option>2026年春季</option><option>2026年冬季</option></datalist></div>
+      <div class="form-group"><label for="year">年份</label><input class="field" id="year" type="number" min="1900" max="2200" placeholder="2026"></div>
+      <div class="form-group"><label for="cover">封面图片 URL</label><input class="field" id="cover" type="url" placeholder="https://…"></div>
+      <div class="form-group full"><label for="summary">简介 / 总备注</label><textarea class="field" id="summary" maxlength="2000" placeholder="写下作品简介、版本差异或来源备注"></textarea></div>
+    </div>
+    <div class="section-head"><h3>分集删减记录</h3><button type="button" class="small" id="addEpisodeBtn">＋ 添加一集</button></div>
+    <p class="help">每集可添加多个时间点。时间格式可写 00:12:34，时长和备注可按需填写。</p>
+    <div id="episodesEditor"></div>
+    <div class="modal-footer"><button type="button" id="cancelDialog">取消</button><button type="submit" class="primary">保存记录</button></div>
+  </form>
+</dialog>
+<input id="importFile" type="file" accept=".json,application/json" class="hidden">
+<div id="toast" class="toast hidden" role="status"></div>
+<script>
+(() => {
+  const STORAGE_KEY = "anime-cut-notes-v1";
+  const $ = id => document.getElementById(id);
+  let animeList = [];
+  let toastTimer;
+  const safeArray = value => Array.isArray(value) ? value : [];
+  function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+  }
+  function safeImageURL(value) {
+    try { const u = new URL(value); return ["http:","https:"].includes(u.protocol) ? u.href : ""; } catch { return ""; }
+  }
+  function makeId() { return (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : "id-" + Date.now() + "-" + Math.random().toString(16).slice(2); }
+  function loadData() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      animeList = safeArray(parsed).map(normalizeAnime);
+    } catch (err) { animeList = []; showToast("读取本地数据失败，请尝试导入备份。"); }
+  }
+  function normalizeAnime(a) {
+    return {id:String(a.id || makeId()), title:String(a.title || "未命名番剧"), season:String(a.season || ""), year:String(a.year || ""), cover:String(a.cover || ""), summary:String(a.summary || ""), episodes:safeArray(a.episodes).map((ep,i)=>({id:String(ep.id || makeId()), number:String(ep.number || i+1), title:String(ep.title || ""), cuts:safeArray(ep.cuts).map(c=>({id:String(c.id || makeId()), time:String(c.time || ""), duration:String(c.duration || ""), note:String(c.note || "")}))}))};
+  }
+  function saveData() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(animeList)); render(); return true; }
+    catch (err) { showToast("保存失败：浏览器存储空间可能不足，请先导出备份。"); return false; }
+  }
+  function showToast(message) {
+    $("toast").textContent = message; $("toast").classList.remove("hidden");
+    clearTimeout(toastTimer); toastTimer = setTimeout(()=>$("toast").classList.add("hidden"), 2800);
+  }
+  function allCuts() { return animeList.reduce((n,a)=>n+a.episodes.reduce((m,e)=>m+e.cuts.length,0),0); }
+  function render() {
+    const query = $("searchInput").value.trim().toLocaleLowerCase();
+    const season = $("seasonFilter").value;
+    const seasons = [...new Set(animeList.map(a=>a.season.trim()).filter(Boolean))].sort((a,b)=>b.localeCompare(a,"zh-CN"));
+    const oldValue = season;
+    $("seasonFilter").innerHTML = '<option value="">全部季度</option>' + seasons.map(s=>`<option value="${escapeHTML(s)}">${escapeHTML(s)}</option>`).join("");
+    if (seasons.includes(oldValue)) $("seasonFilter").value = oldValue;
+    const filtered = animeList.filter(a => (!season || a.season === season) && (!query || [a.title,a.season,a.year,a.summary].join(" ").toLocaleLowerCase().includes(query) || a.episodes.some(ep=>[ep.number,ep.title,...ep.cuts.map(c=>c.note+" "+c.time)].join(" ").toLocaleLowerCase().includes(query))));
+    $("statTitles").textContent = animeList.length;
+    $("statEpisodes").textContent = animeList.reduce((n,a)=>n+a.episodes.length,0);
+    $("statCuts").textContent = allCuts();
+    $("resultCount").textContent = `${filtered.length} 条`;
+    if (!filtered.length) {
+      $("animeGrid").innerHTML = `<div class="empty"><div style="font-size:32px;margin-bottom:8px">✦</div><strong>${animeList.length ? "没有找到匹配的番剧" : "还没有番剧记录"}</strong><p>${animeList.length ? "试试更换关键词或季度筛选。" : "点击「添加番剧」开始整理，也可以先导入已有 JSON 备份。"}</p></div>`;
+      return;
+    }
+    $("animeGrid").innerHTML = filtered.map(a => {
+      const cover = safeImageURL(a.cover);
+      const epCount = a.episodes.length, cutCount = a.episodes.reduce((n,e)=>n+e.cuts.length,0);
+      const episodeHTML = a.episodes.length ? a.episodes.map(ep=>`<div class="episode"><h5>第 ${escapeHTML(ep.number)} 集${ep.title ? " · "+escapeHTML(ep.title) : ""}</h5>${ep.cuts.length ? ep.cuts.map(c=>`<div class="cut"><b>${escapeHTML(c.time || "未填写时间点")}</b>${c.duration ? " · 时长 "+escapeHTML(c.duration) : ""}${c.note ? "<br>"+escapeHTML(c.note) : ""}</div>`).join("") : '<div class="muted" style="font-size:12px">暂无时间点记录</div>'}</div>`).join("") : '<p class="muted" style="font-size:13px">还没有分集记录。</p>';
+      return `<article class="card">
+        <div class="card-top">
+          ${cover ? `<img class="cover" src="${escapeHTML(cover)}" alt="${escapeHTML(a.title)}封面" loading="lazy" onerror="this.outerHTML='<div class=&quot;cover-placeholder&quot;>🎬</div>'">` : '<div class="cover-placeholder">🎬</div>'}
+          <div class="card-info"><h4>${escapeHTML(a.title)}</h4><div class="meta">${a.year ? `<span>${escapeHTML(a.year)}</span>` : ""}${a.season ? `<span>· ${escapeHTML(a.season)}</span>` : ""}</div><span class="tag">${epCount} 集记录</span><span class="tag">${cutCount} 个时间点</span>${a.summary ? `<p class="summary">${escapeHTML(a.summary)}</p>` : ""}<div class="card-actions"><button class="small" data-edit="${escapeHTML(a.id)}">编辑</button><button class="small danger" data-delete="${escapeHTML(a.id)}">删除</button></div></div>
+        </div>
+        <details class="details"><summary>查看分集与删减时间点</summary><div>${episodeHTML}</div></details>
+      </article>`;
+    }).join("");
+  }
+  function episodeEditorHTML(ep = {id:makeId(),number:"",title:"",cuts:[]}) {
+    return `<section class="episode-editor" data-episode-id="${escapeHTML(ep.id || makeId())}">
+      <div class="episode-editor-head"><strong>分集记录</strong><button type="button" class="small danger" data-remove-episode>删除本集</button></div>
+      <div class="form-grid" style="margin-top:10px"><div class="form-group"><label>集数 / 编号 *</label><input class="field ep-number" required value="${escapeHTML(ep.number || "")}" placeholder="1 或 OVA"></div><div class="form-group"><label>分集标题（可选）</label><input class="field ep-title" value="${escapeHTML(ep.title || "")}" placeholder="分集标题"></div></div>
+      <div class="cuts-list">${safeArray(ep.cuts).map(c=>cutEditorHTML(c)).join("")}</div>
+      <button type="button" class="small" style="margin-top:9px" data-add-cut>＋ 添加时间点</button>
+    </section>`;
+  }
+  function cutEditorHTML(c = {id:makeId(),time:"",duration:"",note:""}) {
+    return `<div class="cut-editor" data-cut-id="${escapeHTML(c.id || makeId())}"><input class="field cut-time" value="${escapeHTML(c.time || "")}" placeholder="时间点 00:12:34" aria-label="时间点"><input class="field cut-duration" value="${escapeHTML(c.duration || "")}" placeholder="删减时长" aria-label="删减时长"><input class="field cut-note" value="${escapeHTML(c.note || "")}" placeholder="备注" aria-label="备注"><button type="button" class="small danger" data-remove-cut>删除</button></div>`;
+  }
+  function openEditor(anime) {
+    $("animeForm").reset(); $("episodesEditor").innerHTML = "";
+    $("animeId").value = anime?.id || "";
+    $("dialogTitle").textContent = anime ? "编辑番剧" : "添加番剧";
+    $("title").value = anime?.title || ""; $("season").value = anime?.season || ""; $("year").value = anime?.year || "";
+    $("cover").value = anime?.cover || ""; $("summary").value = anime?.summary || "";
+    safeArray(anime?.episodes).forEach(ep=>$("episodesEditor").insertAdjacentHTML("beforeend",episodeEditorHTML(ep)));
+    $("animeDialog").showModal();
+  }
+  function collectEpisodes() {
+    return [...$("episodesEditor").querySelectorAll(".episode-editor")].map(section=>({
+      id:section.dataset.episodeId || makeId(),
+      number:section.querySelector(".ep-number").value.trim(),
+      title:section.querySelector(".ep-title").value.trim(),
+      cuts:[...section.querySelectorAll(".cut-editor")].map(c=>({id:c.dataset.cutId || makeId(),time:c.querySelector(".cut-time").value.trim(),duration:c.querySelector(".cut-duration").value.trim(),note:c.querySelector(".cut-note").value.trim()})).filter(c=>c.time||c.duration||c.note)
+    }));
+  }
+  $("addBtn").addEventListener("click",()=>openEditor(null));
+  $("closeDialog").addEventListener("click",()=>$("animeDialog").close());
+  $("cancelDialog").addEventListener("click",()=>$("animeDialog").close());
+  $("addEpisodeBtn").addEventListener("click",()=>$("episodesEditor").insertAdjacentHTML("beforeend",episodeEditorHTML({id:makeId(),number:String($("episodesEditor").children.length+1),title:"",cuts:[]})));
+  $("episodesEditor").addEventListener("click",e=>{
+    const section=e.target.closest(".episode-editor");
+    if(e.target.closest("[data-remove-episode]")) section?.remove();
+    if(e.target.closest("[data-add-cut]")) section?.querySelector(".cuts-list").insertAdjacentHTML("beforeend",cutEditorHTML());
+    if(e.target.closest("[data-remove-cut]")) e.target.closest(".cut-editor")?.remove();
+  });
+  $("animeForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const id=$("animeId").value || makeId(), cover=$("cover").value.trim();
+    if(cover && !safeImageURL(cover)){showToast("封面链接请使用 http 或 https 地址。");return;}
+    const item={id,title:$("title").value.trim(),season:$("season").value.trim(),year:$("year").value.trim(),cover,summary:$("summary").value.trim(),episodes:collectEpisodes()};
+    if(!item.title){showToast("请填写番剧名称。");return;}
+    const index=animeList.findIndex(a=>a.id===id);
+    if(index>=0) animeList[index]=item; else animeList.unshift(item);
+    if(saveData()){$("animeDialog").close();showToast(index>=0?"已保存修改。":"已添加番剧。");}
+  });
+  $("animeGrid").addEventListener("click",e=>{
+    const edit=e.target.closest("[data-edit]"), del=e.target.closest("[data-delete]");
+    if(edit){const item=animeList.find(a=>a.id===edit.dataset.edit);if(item)openEditor(item);}
+    if(del){const item=animeList.find(a=>a.id===del.dataset.delete);if(item && confirm(`确定删除「${item.title}」及其所有分集记录吗？此操作无法撤销。`)){animeList=animeList.filter(a=>a.id!==item.id);saveData();showToast("已删除记录。");}}
+  });
+  $("searchInput").addEventListener("input",render);
+  $("seasonFilter").addEventListener("change",render);
+  $("exportBtn").addEventListener("click",()=>{
+    const blob=new Blob([JSON.stringify({format:"anime-cut-notes",version:1,exportedAt:new Date().toISOString(),items:animeList},null,2)],{type:"application/json;charset=utf-8"});
+    const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="anime-cut-notes-backup-"+new Date().toISOString().slice(0,10)+".json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);showToast("备份文件已导出。");
+  });
+  $("importBtn").addEventListener("click",()=>$("importFile").click());
+  $("importFile").addEventListener("change",async e=>{
+    const file=e.target.files?.[0]; if(!file)return;
+    try {
+      const parsed=JSON.parse(await file.text());
+      const rows=Array.isArray(parsed)?parsed:parsed.items;
+      if(!Array.isArray(rows))throw new Error("格式不正确");
+      if(!confirm(`备份中有 ${rows.length} 部番剧。导入会替换当前浏览器中的全部记录，建议先导出当前数据。继续吗？`))return;
+      animeList=rows.map(normalizeAnime);
+      if(saveData())showToast("备份导入成功。");
+    } catch(err) { alert("导入失败：文件不是有效的番剧删减表 JSON 备份。"); }
+    finally {e.target.value="";}
+  });
+  loadData(); render();
+})();
+</script>
+</body>
+</html>
